@@ -13,39 +13,30 @@ class PopularShotsFeedBL {
     
     
     func fetchPopularShots() {
-//        Alamofire.request(
-//            URL(string: "http://localhost:5984/rooms/_all_docs")!,
-//            method: .get,
-//            parameters: ["include_docs": "true"])
-//            .validate()
-//            .responseJSON { (response) -> Void in
-//                guard response.result.isSuccess else {
-//                    print("ERROR")
-//                    //    print("Error while fetching remote rooms: \(response.result.error)")
-//                    //    completion(nil)
-//                    return
-//                }
-//        }
         
-        let headers = ["Authorisation" : "Bearer \(ACCESS_TOKEN_CLIENT)",
+        let url = "\(URL_BASE)\(URL_POPULARSHOTS)"
+        print(url)
+        let headers = ["Authorization" : "Bearer \(ACCESS_TOKEN_CLIENT)",
                                 "Accept" : "application/json"
                                 ]
-        
-        Alamofire.request("\(URL_BASE)\(URL_POPULARSHOTS)", method: .get, parameters: ["":""], encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+        Alamofire.request("https://api.dribbble.com/v1/shots", method: .get, parameters: nil , encoding: JSONEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+//            print(response.request as Any)  // original URL request
+//            print(response.response as Any) // URL response
+//            print(response.result.value as Any)   // result of response serialization
             switch(response.result) {
             case .success(_):
-                print(response.result.error)
-//                if let data = response.result.value{
-//                    print(response.result.value)
-//                }
-//                break
-//                
+              
+                if let data = response.result.value{
+                    print(response.result.value)
+                    
+                }
+                break
+
             case .failure(_):
                 print(response.result.error)
-//                break
-//                
-//            }
-//        }
+                break
+
 }
 }
 }

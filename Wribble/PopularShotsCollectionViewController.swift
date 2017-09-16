@@ -20,6 +20,10 @@ class PopularShotsCollectionViewController: UIViewController, UICollectionViewDe
         self.title = "dribble"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        PopularShotsFeedBL().fetchPopularShots()
+    }
+    
     
     //MARK: - CollectionView DataSource Delegate
     func numberOfSections(in collectionView: UICollectionView) -> Int {
